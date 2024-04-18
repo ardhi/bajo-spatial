@@ -1,6 +1,6 @@
 {
   "name": "bajo-spatial",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Spatial functions for Bajo Framework",
   "main": "index.js",
   "scripts": {

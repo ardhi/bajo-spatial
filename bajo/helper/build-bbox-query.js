@@ -1,6 +1,5 @@
 async function buildBboxQuery ({ bbox, query, schema, options = {} } = {}) {
-  const { importPkg } = this.bajo.helper
-  const { merge, isEmpty } = await importPkg('lodash-es')
+  const { merge, isEmpty } = this.bajo.helper._
   const { parseBbox } = this.bajoSpatial.helper
   const props = schema.properties.map(item => item.name)
   const { bboxLatField = 'lat', bboxLngField = 'lng' } = options
