@@ -5,7 +5,7 @@ const onBeforeRecordFind = {
     if (!filter.bbox) return
     const { getSchema } = this.bajoDb.helper
     const schema = getSchema(name)
-    await buildBboxQuery({ bbox: filter.bbox, query: filter.query, schema, options })
+    filter.query = await buildBboxQuery({ bbox: filter.bbox, query: filter.query, schema, options })
   }
 }
 
