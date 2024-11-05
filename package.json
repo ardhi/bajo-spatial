@@ -1,6 +1,6 @@
 {
   "name": "bajo-spatial",
-  "version": "0.3.2",
+  "version": "1.0.0",
   "description": "Spatial functions for Bajo Framework",
   "main": "index.js",
   "scripts": {
@@ -24,5 +24,6 @@
   },
   "homepage": "https://github.com/ardhi/bajo-spatial#readme",
   "dependencies": {
+    "geolib": "^3.3.4"
   }
 }
