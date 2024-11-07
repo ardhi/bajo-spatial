@@ -1,5 +1,5 @@
 import { sexagesimalToDecimal } from 'geolib'
 
-module.exports = function (val) {
+export default function (val) {
   return sexagesimalToDecimal(val)
 }
