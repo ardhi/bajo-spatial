@@ -13,8 +13,8 @@ async function parseBbox (input) {
   if (input.length === 2 && !input.includes(',')) return await getCountryBbox.call(this, input)
   const [minx, miny, maxx, maxy] = input.split(',').map(b => parseFloat(b) || null)
   const valid = (isSet(minx) && isSet(miny) && isSet(maxx) && isSet(maxy)) &&
-    (minx >= -180 && maxx <= 180 && miny >= -90 && maxy <= 90) &&
-    (minx <= maxx && miny <= maxy)
+    (minx >= -180 && maxx <= 180 && miny >= -90 && maxy <= 90)
+    // (minx <= maxx && miny <= maxy)
   if (valid) return [minx, miny, maxx, maxy]
   throw this.error('Invalid bbox \'%s\'', input)
 }
