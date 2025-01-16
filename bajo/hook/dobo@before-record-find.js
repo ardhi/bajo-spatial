@@ -1,4 +1,4 @@
-const onBeforeRecordFind = {
+const beforeRecordFind = {
   level: 1001,
   handler: async function (name, filter, options) {
     if (!filter.bbox) return
@@ -8,4 +8,4 @@ const onBeforeRecordFind = {
   }
 }
 
-export default onBeforeRecordFind
+export default beforeRecordFind
