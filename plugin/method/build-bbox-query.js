@@ -1,5 +1,5 @@
 async function buildBboxQuery ({ bbox, query, schema, options = {} } = {}) {
-  const { merge, isEmpty } = this.app.bajo.lib._
+  const { merge, isEmpty } = this.lib._
   const props = schema.properties.map(item => item.name)
   const { bboxLatField = 'lat', bboxLngField = 'lng' } = options
   if (props.includes(bboxLatField) && props.includes(bboxLngField)) {
