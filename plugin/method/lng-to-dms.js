@@ -1,4 +1,4 @@
-import ddToDms from './ddToDms.js'
+import ddToDms from './dd-to-dms.js'
 
 export default function (val, secPrecision) {
   const dms = ddToDms(val, secPrecision)

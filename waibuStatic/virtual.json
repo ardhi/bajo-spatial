@@ -1,4 +1,7 @@
 [{
   "prefix": "geolib",
-  "root": "node_modules/geolib"
+  "root": "geolib:"
+}, {
+  "prefix": "turf",
+  "root": "@turf/turf:"
 }]

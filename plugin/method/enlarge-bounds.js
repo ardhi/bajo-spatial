@@ -1,6 +1,6 @@
-import tileToLng from './tileToLng.js'
-import tileToLat from './tileToLat.js'
-import boundsToTiles from './boundsToTiles.js'
+import tileToLng from './tile-to-lng.js'
+import tileToLat from './tile-to-lat.js'
+import boundsToTiles from './bounds-to-tiles.js'
 
 export default function (bounds, zoom) {
   const tiles = boundsToTiles(bounds, zoom)

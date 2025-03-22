@@ -1,5 +1,5 @@
-import lngToTile from './lngToTile.js'
-import latToTile from './latToTile.js'
+import lngToTile from './lng-to-tile.js'
+import latToTile from './lat-to-tile.js'
 
 export default function (bounds, zoom, allTiles, withZ) {
   const x1 = lngToTile(bounds[0], zoom)

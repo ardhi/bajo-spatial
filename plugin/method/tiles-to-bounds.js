@@ -1,5 +1,5 @@
-import tileToLng from './tileToLng.js'
-import tileToLat from './tileToLat.js'
+import tileToLng from './tile-to-lng.js'
+import tileToLat from './tile-to-lat.js'
 
 export default function (x1, y1, x2, y2, zoom, extra) {
   const lng1 = tileToLng(x1, zoom)
