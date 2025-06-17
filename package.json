@@ -1,6 +1,6 @@
 {
   "name": "bajo-spatial",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Spatial functions for Bajo Framework",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,7 @@
   "homepage": "https://github.com/ardhi/bajo-spatial#readme",
   "dependencies": {
     "@turf/turf": "^7.2.0",
+    "aneka-spatial": "^0.0.3",
     "geolib": "^3.3.4"
   }
 }
