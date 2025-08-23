@@ -4,7 +4,7 @@ import anekaSpatial from 'aneka-spatial/index.js'
 async function factory (pkgName) {
   const me = this
 
-  return class BajoSpatial extends this.lib.BajoPlugin {
+  return class BajoSpatial extends this.lib.Plugin {
     constructor () {
       super(pkgName, me.app)
       this.alias = 'spatial'
