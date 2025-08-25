@@ -4,10 +4,11 @@ import anekaSpatial from 'aneka-spatial/index.js'
 async function factory (pkgName) {
   const me = this
 
-  return class BajoSpatial extends this.lib.Plugin {
+  class BajoSpatial extends this.lib.Plugin {
+    static alias = 'spatial'
+
     constructor () {
       super(pkgName, me.app)
-      this.alias = 'spatial'
       this.config = {}
       this.lib.turf = turf
       this.lib.anekaSpatial = anekaSpatial
@@ -53,6 +54,8 @@ async function factory (pkgName) {
       throw this.error('Invalid bbox \'%s\'', input)
     }
   }
+
+  return BajoSpatial
 }
 
 export default factory
