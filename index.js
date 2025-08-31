@@ -4,18 +4,18 @@ import anekaSpatial from 'aneka-spatial/index.js'
 async function factory (pkgName) {
   const me = this
 
-  class BajoSpatial extends this.lib.Plugin {
+  class BajoSpatial extends this.app.pluginClass.base {
     static alias = 'spatial'
 
     constructor () {
       super(pkgName, me.app)
       this.config = {}
-      this.lib.turf = turf
-      this.lib.anekaSpatial = anekaSpatial
+      this.app.lib.turf = turf
+      this.app.lib.anekaSpatial = anekaSpatial
     }
 
     buildBboxQuery = async ({ bbox, query, schema, options = {} } = {}) => {
-      const { merge, isEmpty } = this.lib._
+      const { merge, isEmpty } = this.app.lib._
       const props = schema.properties.map(item => item.name)
       const { bboxLatField = 'lat', bboxLngField = 'lng' } = options
       if (props.includes(bboxLatField) && props.includes(bboxLngField)) {
@@ -44,7 +44,7 @@ async function factory (pkgName) {
     }
 
     parseBbox = async (input) => {
-      const { isSet } = this.lib.aneka
+      const { isSet } = this.app.lib.aneka
       if (input.length === 2 && !input.includes(',')) return await this.getCountryBbox(input)
       const [minx, miny, maxx, maxy] = input.split(',').map(b => parseFloat(b) || null)
       const valid = (isSet(minx) && isSet(miny) && isSet(maxx) && isSet(maxy)) &&
