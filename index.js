@@ -1,16 +1,25 @@
-import * as turf from '@turf/turf'
 import anekaSpatial from 'aneka-spatial/index.js'
 
+/**
+ * Plugin factory
+ *
+ * @param {string} pkgName - NPM package name
+ * @returns {class}
+ */
 async function factory (pkgName) {
   const me = this
 
+  /**
+   * BajoSpatial class
+   *
+   * @class
+   */
   class BajoSpatial extends this.app.pluginClass.base {
     static alias = 'spatial'
 
     constructor () {
       super(pkgName, me.app)
       this.config = {}
-      this.app.lib.turf = turf
       this.app.lib.anekaSpatial = anekaSpatial
     }
 
