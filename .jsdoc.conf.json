@@ -14,14 +14,14 @@
       "homepageTitle": "BajoSpatial API",
       "sections": ["Classes", "Events", "Modules", "Global"],
       "menu": [{
-        "title": "Bajo",
-        "link": "https://bajo.app"
-      }, {
         "title": "NPM",
         "link": "https://www.npmjs.com/package/bajo-spatial"
       }, {
         "title": "Github",
         "link": "https://github.com/ardhi/bajo-spatial"
+      }, {
+        "title": "Bajo",
+        "link": "https://bajo.app"
       }]
     }
   },
