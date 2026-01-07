@@ -1,5 +1,3 @@
-import anekaSpatial from 'aneka-spatial/index.js'
-
 /**
  * Plugin factory
  *
@@ -14,18 +12,17 @@ async function factory (pkgName) {
    *
    * @class
    */
-  class BajoSpatial extends this.app.pluginClass.base {
+  class BajoSpatial extends this.app.baseClass.Base {
     static alias = 'spatial'
 
     constructor () {
       super(pkgName, me.app)
       this.config = {}
-      this.app.lib.anekaSpatial = anekaSpatial
     }
 
-    buildBboxQuery = async ({ bbox, query, schema, options = {} } = {}) => {
+    buildBboxQuery = async ({ bbox, query = {}, model, options = {} } = {}) => {
       const { merge, isEmpty } = this.app.lib._
-      const props = schema.properties.map(item => item.name)
+      const props = model.properties.map(item => item.name)
       const { bboxLatField = 'lat', bboxLngField = 'lng' } = options
       if (props.includes(bboxLatField) && props.includes(bboxLngField)) {
         const [minx, miny, maxx, maxy] = await this.parseBbox(bbox)
@@ -34,9 +31,14 @@ async function factory (pkgName) {
         q[bboxLatField] = { $gte: miny, $lte: maxy }
         if (isEmpty(query)) query = q
         else {
-          const $or = query.$or
-          if ($or) query = merge(q, { $or })
-          else merge(query, q)
+          if (query.$and) {
+            query.$and.push(q)
+          } else if (query.$or) {
+            const old = query.$or
+            query = { $and: [old, q] }
+          } else {
+            merge(query, q)
+          }
         }
       }
       return query
@@ -46,8 +48,8 @@ async function factory (pkgName) {
       item = item + ''
       if (item.includes(',')) return
       if (!this.app.bajoCommonDb || !this.app.dobo) return
-      const { recordGet } = this.app.dobo
-      const country = await recordGet('CdbCountry', item, { thrownNotFound: false })
+      const model = this.app.dobo.getModel('CdbCountry')
+      const country = await model.getRecord(item, { throwNotFound: false })
       if (country) return country.bbox
       throw this.error('Invalid country bbox \'%s\'', item, { statusCode: 400 })
     }
