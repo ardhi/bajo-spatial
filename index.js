@@ -13,8 +13,6 @@ async function factory (pkgName) {
    * @class
    */
   class BajoSpatial extends this.app.baseClass.Base {
-    static alias = 'spatial'
-
     constructor () {
       super(pkgName, me.app)
       this.config = {}
