@@ -1,24 +1,47 @@
 /**
- * Plugin factory
+ * Plugin factory.
+ *
+ * **Never** call this function directly!!! It's only-meant to be called by the {@link https://ardhi.github.io/bajo|Bajo framework} during plugin initialization.
  *
  * @param {string} pkgName - NPM package name
- * @returns {class}
+ * @returns {class} BajoSpatial
  */
 async function factory (pkgName) {
   const me = this
 
   /**
-   * BajoSpatial class
+   * BajoSpatial class definition
    *
    * @class
    */
   class BajoSpatial extends this.app.baseClass.Base {
+    /**
+     * Creates an instance of BajoSpatial.
+     */
     constructor () {
       super(pkgName, me.app)
+      /**
+       * @property {object} config - Configuration object
+       */
       this.config = {}
     }
 
-    buildBboxQuery = async ({ bbox, query = {}, model, options = {} } = {}) => {
+    /**
+     * Builds a bounding box query for a given model.
+     *
+     * @async
+     * @method
+     * @param {object} params - Parameters for building the query.
+     * @param {string} params.bbox - Bounding box coordinates.
+     * @param {object} [params.query={}] - Existing query object to merge with.
+     * @param {object} params.model - {@link https://ardhi.github.io/dobo|Dobo model} to apply the query to.
+     * @param {object} [params.options={}] - Additional options for query building.
+     * @param {string} [params.options.bboxLatField='lat'] - Latitude field name in the model.
+     * @param {string} [params.options.bboxLngField='lng'] - Longitude field name in the model.
+     * @returns {object} - The modified query object with bounding box conditions.
+     */
+    buildBboxQuery = async (params = {}) => {
+      let { bbox, query = {}, model, options = {} } = params
       const { merge, isEmpty } = this.app.lib._
       const props = model.properties.map(item => item.name)
       const { bboxLatField = 'lat', bboxLngField = 'lng' } = options
@@ -42,6 +65,15 @@ async function factory (pkgName) {
       return query
     }
 
+    /**
+     * Gets the bounding box for a given country ID.
+     * Requires the `bajoCommonDb` and `dobo` plugins to be available. Otherwise, it will return undefined.
+     *
+     * @async
+     * @method
+     * @param {string} item - Country ID.
+     * @returns {Promise<string|undefined>} - The bounding box string or undefined if not found.
+     */
     getCountryBbox = async (item) => {
       item = item + ''
       if (item.includes(',')) return
@@ -52,6 +84,14 @@ async function factory (pkgName) {
       throw this.error('Invalid country bbox \'%s\'', item, { statusCode: 400 })
     }
 
+    /**
+     * Parses a bounding box input.
+     *
+     * @async
+     * @method
+     * @param {string} input - The bounding box input, either a country ID or coordinates.
+     * @returns {Promise<Array<number>|undefined>} - The parsed bounding box coordinates or undefined if not found.
+     */
     parseBbox = async (input) => {
       const { isSet } = this.app.lib.aneka
       if (input.length === 2 && !input.includes(',')) return await this.getCountryBbox(input)
